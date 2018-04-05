@@ -1,13 +1,13 @@
 %define debug_package %{nil}
 Name:           syncthing
-Version:        0.14.45
+Version:        0.14.46
 Release:        0%{?dist}
 Summary:        Open, trustworthy and decentralized sync
 
 Group:          Applications/System
 License:        MPLv2
-URL:            https://github.com/syncthing/syncthing
-Source0:        https://github.com/syncthing/syncthing/releases/download/v%{version}/syncthing-source-v%{version}.tar.gz
+URL:            https://github.com/%{name}/%{name}
+Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
 
 BuildRequires:  git golang systemd
 
@@ -45,6 +45,9 @@ cp etc/linux-systemd/user/syncthing.service %{buildroot}%{_userunitdir}
 %{_userunitdir}/syncthing.service
 
 %changelog
+* Thu Apr 05 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.46
+- Update to v0.14.46
+
 * Wed Apr 04 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.45
 - Update to v0.14.45
 
