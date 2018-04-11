@@ -1,14 +1,18 @@
 %define debug_package %{nil}
+%define repo github.com/syncthing/syncthing
 Name:           syncthing
 Version:        0.14.46
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Open, trustworthy and decentralized sync
 
-License:        MPLv2
-URL:            https://github.com/%{name}/%{name}
-Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
+License:        MPLv2.0
+URL:            https://%{repo}
+Source0:        https://%{repo}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
 
 BuildRequires:  git golang systemd
+
+AutoReq:        no
+AutoReqProv:    no
 
 %description
 Syncthing replaces proprietary sync and cloud services with something open,
@@ -17,13 +21,14 @@ to choose where it is stored, if it is shared with some third party and how
 it's transmitted over the Internet.
 
 %prep
-%setup -q -n %{name}
+%setup -q -c -n %{name}
+mkdir -p $(dirname src/%{repo})
+mv %{name} src/%{repo}
 
 %build
 export GOPATH="$(pwd)"
-mkdir -p src/github.com/syncthing
-ln -s "$(pwd)" src/github.com/syncthing/syncthing
-cd src/github.com/syncthing/syncthing
+export PATH=$PATH:"$(pwd)"/bin
+cd src/%{repo}
 ./build.sh noupgrade
 
 %install
@@ -31,10 +36,10 @@ mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_userunitdir}
 
-cp syncthing %{buildroot}%{_bindir}
-cp etc/linux-systemd/system/syncthing\@.service  %{buildroot}%{_unitdir}
-cp etc/linux-systemd/system/syncthing-resume.service  %{buildroot}%{_unitdir}
-cp etc/linux-systemd/user/syncthing.service %{buildroot}%{_userunitdir}
+cp src/%{repo}/syncthing %{buildroot}%{_bindir}
+cp src/%{repo}/etc/linux-systemd/system/syncthing\@.service  %{buildroot}%{_unitdir}
+cp src/%{repo}/etc/linux-systemd/system/syncthing-resume.service  %{buildroot}%{_unitdir}
+cp src/%{repo}/etc/linux-systemd/user/syncthing.service %{buildroot}%{_userunitdir}
 
 
 %files
@@ -42,8 +47,13 @@ cp etc/linux-systemd/user/syncthing.service %{buildroot}%{_userunitdir}
 %{_unitdir}/syncthing@.service
 %{_unitdir}/syncthing-resume.service
 %{_userunitdir}/syncthing.service
+%license src/%{repo}/LICENSE
 
 %changelog
+* Thu Apr 05 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.46-1
+- Improve build process
+- Add license file
+
 * Thu Apr 05 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.46
 - Update to v0.14.46
 
