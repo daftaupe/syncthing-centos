@@ -4,7 +4,6 @@ Version:        0.14.46
 Release:        0%{?dist}
 Summary:        Open, trustworthy and decentralized sync
 
-Group:          Applications/System
 License:        MPLv2
 URL:            https://github.com/%{name}/%{name}
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
