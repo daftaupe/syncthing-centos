@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 %define repo github.com/syncthing/syncthing
 Name:           syncthing
-Version:        0.14.47
+Version:        0.14.48
 Release:        1%{?dist}
 Summary:        Open, trustworthy and decentralized sync
 
@@ -50,7 +50,10 @@ cp src/%{repo}/etc/linux-systemd/user/syncthing.service %{buildroot}%{_userunitd
 %license src/%{repo}/LICENSE
 
 %changelog
-* Tue May 01 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.47
+* Tue Jun 05 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.48-1
+- Update to v0.14.48
+
+* Tue May 01 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.47-1
 - Update to v0.14.47
 
 * Thu Apr 05 2018 Pierre-Alain TORET <pierre-alain.toret@protonmail.com> 0.14.46-1
